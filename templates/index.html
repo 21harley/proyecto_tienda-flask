@@ -1,37 +1,98 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+  <head>
     <title>Page title</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
     <script src="js/main.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
-</head>
-<body class="antialiased bg-body text-body font-body">
+  </head>
+  <body class="antialiased bg-body text-body font-body">
     <div class="">
-     
-    <section class="relative pb-20">
-        <nav class="flex justify-between items-center py-8 px-4 xl:px-10">
-            <ul class="hidden lg:flex lg:ml-auto lg:mr-12 lg:items-center lg:w-auto lg:space-x-12">
-                <li><a class="inline-block py-3 px-8 text-sm leading-normal font-medium bg-red-50 hover:bg-red-100 text-red-500 rounded transition duration-200" href="/login" >Login</a></li>
-            </ul>
-            <div class="hidden lg:block">
-                <a class="inline-block py-3 px-8 text-sm leading-normal font-medium bg-red-50 hover:bg-red-100 text-red-500 rounded transition duration-200" href="/register">Register</a>
-            </div>
+      <section class="relative pb-10">
+        <nav class="flex justify-between items-center py-4 px-4 xl:px-10">
+          <ul
+            class="hidden lg:flex lg:ml-auto lg:mr-12 lg:items-center lg:w-auto lg:space-x-12"
+          >
+            <li>
+              <a
+                class="inline-block py-3 px-8 text-sm leading-normal font-medium bg-red-50 hover:bg-red-100 text-red-500 rounded transition duration-200"
+                href="/login"
+                >Login</a
+              >
+            </li>
+          </ul>
+          <div class="hidden lg:block">
+            <a
+              class="inline-block py-3 px-8 text-sm leading-normal font-medium bg-red-50 hover:bg-red-100 text-red-500 rounded transition duration-200"
+              href="/register"
+              >Register</a
+            >
+          </div>
         </nav>
-        <div class="relative container pt-12 px-4 mx-auto text-center">
-            <span class="text-blue-400 font-semibold">Bootcamp Backend con Python</span>
-            <h2 class="mt-8 mb-8 lg:mb-12 text-4xl lg:text-6xl font-semibold">Mi PyTienda en línea. 🐍</h2>
-            <p class="max-w-3xl mx-auto mb-8 lg:mb-12 text-xl text-gray-500">
-                Páginas web desarrollada con Flask, Peewee y Python.    
-            </p>
-            <a class="inline-block w-full md:w-auto mb-2 md:mb-0 px-8 py-4 mr-4 text-sm font-medium leading-normal bg-red-400 hover:bg-red-300 text-white rounded transition duration-200" href="/register">
-                Comienza ahora
-            </a>
+        <div class="relative container pt-6 px-4 mx-auto text-center">
+          <span class="text-blue-400 font-semibold"
+            >Bootcamp Backend con Python</span
+          >
+          <h2 class="mt-8 mb-8 lg:mb-12 text-4xl lg:text-6xl font-semibold">
+            Mi PyTienda en línea. 🐍
+          </h2>
+          <p class="max-w-3xl mx-auto mb-8 lg:mb-12 text-xl text-gray-500">
+            Páginas web desarrollada con Flask, Peewee y Python.
+          </p>
+          <div class="flex flex-wrap mb-16">
+            {% for product in products %}
+            <div class="w-full md:w-1/2 lg:w-1/3 p-3">
+              <div class="p-6 border rounded-xl">
+                <div class="relative h-52 mb-6">
+                  <span
+                    class="absolute top-0 right-0 mt-4 mr-4 text-xs text-white px-2 py-1 font-semibold bg-gray-600 bg-opacity-50 rounded-md uppercase"
+                    >Categoria</span
+                  >
+                  <img
+                    class="w-full h-full object-cover rounded-lg"
+                    src="https://images-codigofacilito.s3.us-west-1.amazonaws.com/images/thumb_default.jpg"
+                    alt=""
+                  />
+                </div>
+                <span class="inline-block mb-4 text-xs text-gray-500"
+                  >{{ product.created_at }}</span
+                >
+                <h2 class="mb-4 text-2xl font-semibold font-heading">
+                  {{ product.name }}
+                </h2>
+                <p class="mb-4 text-gray-500 leading-relaxed">
+                  {{ product.price_format }}
+                </p>
+                {% if user!="false"%}
+                <a
+                  class="text-lg font-medium text-yellow-500 underline hover:no-underline"
+                  href="/products/update/{{ product.id }}"
+                  >Editar</a
+                >
+                <a
+                  class="text-lg font-medium text-red-500 underline hover:no-underline"
+                  href="/products/delete/{{ product.id }}"
+                  >Eliminar</a
+                >
+                {% endif %}
+              </div>
+            </div>
+            {% endfor %}
+          </div>
+          <a
+            class="inline-block w-full md:w-auto mb-2 md:mb-0 px-8 py-4 mr-4 text-sm font-medium leading-normal bg-red-400 hover:bg-red-300 text-white rounded transition duration-200"
+            href="/register"
+          >
+            Comienza ahora
+          </a>
         </div>
-    </section>
+      </section>
     </div>
-</body>
+  </body>
 </html>

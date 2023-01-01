@@ -12,15 +12,14 @@ db = MySQLDatabase(
 )
 
 
-class User(Model): # Tablas
+class User(Model):  # Tablas
     email = TextField()
-    password = TextField() # 
-    created_at = DateTimeField(default=datetime.datetime.now) # 
-    
+    password = TextField()
+    created_at = DateTimeField(default=datetime.datetime.now)
+
     class Meta:
         database = db
         db_table = 'users'
-
 
     @classmethod
     def create_user(cls, _email, _password):
@@ -28,25 +27,31 @@ class User(Model): # Tablas
         # Nuestro algoritmo de encrypt
         _password = 'cody_' + _password
         return User.create(email=_email, password=_password)
+
     @classmethod
     def user_exists(cls, _email, _password):
         user = User.select(email=_email, password=_password)
         return user
 # Migrations
-class Product(Model): # Tablas
+
+
+class Product(Model):  # Tablas
     name = TextField()
-    price = IntegerField() # 
+    price = IntegerField()
     user = ForeignKeyField(User, backref='products')
-    created_at = DateTimeField(default=datetime.datetime.now) # 
-    
-    
+    created_at = DateTimeField(default=datetime.datetime.now)
+
     @property
     def price_format(self):
-        return f"$ {self.price // 100} dólares"
-    
+        return f"$ {self.price } dólares"
+
+    @classmethod
+    def all_product(self):
+        return Product.select()
+
     class Meta:
         database = db
         db_table = 'products'
 
 
-db.create_tables( [User, Product] )
+db.create_tables([User, Product])
